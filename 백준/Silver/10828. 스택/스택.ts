@@ -5,29 +5,24 @@ const stack:number[] = [];
 const answerArr:number[] = [];
 
 for (let el of input){
-    if (el.startsWith('push')){
-        stack.push(el.split(' ')[1]);
-    } else if (el.startsWith('pop')){
-        if (stack[0]){
-            answerArr.push(stack[stack.length-1]);
-            stack.pop();
-        } else {
-            answerArr.push(-1);
-        }
-    } else if (el.startsWith('size')){
-        answerArr.push(stack.length);
-    } else if (el.startsWith('empty')){
-        if (stack[0]){
-            answerArr.push(0);
-        } else {
-            answerArr.push(1);
-        }
-    } else if (el.startsWith('top')){
-        if (stack[0]){
-            answerArr.push(stack[stack.length-1]);
-        } else {
-            answerArr.push(-1);
-        }
+    switch(el.split(' ')[0]){
+        case 'push':
+            stack.push(el.split(' ')[1]);
+            break;
+        case 'pop':
+            answerArr.push(stack[0] ? stack.pop()! : -1);
+            break;
+        case 'size':
+            answerArr.push(stack.length);
+            break;
+        case 'empty':
+            answerArr.push(stack[0] ? 0 : 1);
+            break;
+        case 'top':
+            answerArr.push(stack[0] ? stack[stack.length-1] : -1);
+            break;
+        default:
+            break;
     }
 }
 console.log(answerArr.join('\n'))
