@@ -5,7 +5,11 @@ const [l, str] = require('fs')
 const r = 31;
 const M = 1234567891;
 let hash = 0;
+let power = 1;
 
-for (let i = 0; i<Number(l); i++) hash = (hash + (str.charCodeAt(i) - 96) * (r ** i)) % M;
+for (let i = 0; i<Number(l); i++) {
+    hash = (hash + (str.charCodeAt(i) - 96) * power) % M;
+    power = (power * r) % M;
+}
 
 console.log(hash);
