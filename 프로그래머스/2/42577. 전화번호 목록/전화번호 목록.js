@@ -1,12 +1,7 @@
 function solution(phone_book) {
-    let answer = true;
-    const a = phone_book.sort();
-
-    for (let i = 0; i < a.length - 1; i++) {
-        if (a[i+1].startsWith(a[i])){
-                answer= false;
-                break;
-        }
-    }
-    return answer;
+  phone_book.sort();
+  for (let i = 0; i < phone_book.length - 1; i++) {
+      if (phone_book[i+1].startsWith(phone_book[i])) return false;
+  }
+  return true;
 }
