@@ -1,35 +1,24 @@
 function solution(friends, gifts) {
-    let answer = 0;
-    let score = Object.fromEntries(friends.map(friend => [friend, 0]));
-    let giveAmount = Object.fromEntries(friends.map(friend => [friend, {}] ));
-    let receivedAmount = Object.fromEntries(friends.map(friend => [friend, {}] ));
-
-    gifts.forEach(gift => {
-        let [giver, receiver] = gift.split(' ');
-        score[giver]++;
-        score[receiver]--;
-        if ( !giveAmount[giver][receiver] ) giveAmount[giver][receiver] = 1;
-        else { giveAmount[giver][receiver]++ };
-        if ( !receivedAmount[receiver][giver]) receivedAmount[receiver][giver] = 1;
-        else { receivedAmount[receiver][giver]++ };
-    });
+    const table = Object.fromEntries(friends.map(a => [a, Object.fromEntries(friends.map(b => [b, 0]))]));
+    const score = Object.fromEntries(friends.map(name => [name, 0]));
     
-    for (let giver in giveAmount){
-        let count = 0;
-        friends.forEach(friend =>{
-            if (giveAmount[giver][friend]){
-                if (giveAmount[giver][friend] > receivedAmount[giver][friend] || !receivedAmount[giver][friend]){
-                    count ++;
-                } else if (giveAmount[giver][friend] === receivedAmount[giver][friend]){
-                    if (score[giver] > score[friend]) count ++;
-                }
-            } else {
-                if (giver !== friend && !giveAmount[giver][friend] && !receivedAmount[giver][friend] ){
-                    if (score[giver] > score[friend]) count ++;
-                }
-            }
-        })
-        answer = Math.max(count, answer);
+    for (const gift of gifts) {
+        const [from, to] = gift.split(' ');
+        table[from][to]++;
+        score[from]++;
+        score[to]--;
     }
+    
+    let answer = 0;
+    
+    for (const a of friends){
+        let count = 0;
+        for(const b of friends){
+            if (a === b) continue;
+            if (table[a][b] > table[b][a] || table[a][b] === table[b][a] && score[a] > score[b]) count++;
+        }
+        answer = Math.max(answer, count);
+    }
+
     return answer;  
 }
