@@ -1,22 +1,10 @@
-function countElements(arr) {
-    const elementCount = new Map();
-
-    arr.forEach(element => {
-        elementCount.set(element, (elementCount.get(element) || 0) + 1);
-    });
-
-    return elementCount;
-}
-
 function solution(participant, completion) {
-    var answer = '';
-    const partIn = countElements(participant);
-    const finish = countElements(completion);
+  const nameCount = new Map();
 
-    partIn.forEach((value, key) => {
-        if (value !== finish.get(key)){
-            answer = key;
-        }
-    });
-    return answer;
+  participant.forEach(name => nameCount.set(name, (nameCount.get(name) || 0) + 1));
+  completion.forEach(name => nameCount.set(name, nameCount.get(name) - 1));
+    
+  for (const [key, value] of nameCount) {
+    if (value > 0) return key;
+  }
 }
