@@ -1,6 +1,7 @@
 # [level 1] 숫자 문자열과 영단어 - 81301 
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/81301) 
+[풀이 요약](https://velog.io/@pcwadarong/프로그래머스-숫자-문자열과-영단어)
 
 ### 성능 요약
 
